@@ -1,5 +1,5 @@
-const {joinVoiceChannel,createAudioPlayer,createAudioResource} = require("@discordjs/voice")
-const ytdl = require('ytdl-core');
+const {joinVoiceChannel,createAudioPlayer,createAudioResource, StreamType} = require("@discordjs/voice")
+const ytdl = require('ytdl-core-discord');
 const ytSearch = require('yt-search');
 
 
@@ -38,13 +38,14 @@ module.exports = {
 
 
     if (video) {
-      const resource = createAudioResource(ytdl(video.url), {
-        filter: 'audioonly',
-        quality: 'highestaudio',
-        inlineVolume: true
+      const resource = createAudioResource(await ytdl(video.url), {
+        inputType: StreamType.Opus
+        // filter: 'audioonly',
+        // quality: 'highestaudio',
+        // inlineVolume: true
       });
 
-      resource.volume.setVolume(0.2);
+      // resource.volume.setVolume(0.2);
       const player = createAudioPlayer();
       VoiceConnection.subscribe(player);
       player.play(resource)
@@ -58,10 +59,8 @@ module.exports = {
       //     VoiceConnection.destroy()
       //   } catch (error) {}
 
-      //   await new Promise(res => setTimeout(() => res(2), 500))
-      //   joinChannel(channelId);
-
-
+      //   // await new Promise(res => setTimeout(() => res(2), 500))
+      //   // joinChannel(channelId);
       // })
 
       await message.reply(`:thumbs up: Now playing ***${video.title}***`);
