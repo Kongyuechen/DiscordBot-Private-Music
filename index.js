@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
   console.log('GroovyRhythm is online!');
-})
+});
 
 // Responds to commands after ridding the prefix
 client.on('messageCreate', (message) => {
@@ -37,7 +37,7 @@ client.on('messageCreate', (message) => {
   } else if (command === 'play') {
     client.commands.get(command).execute(message, args);
   }
-})
+});
 
 //Logins with token
 client.login(TOKEN);

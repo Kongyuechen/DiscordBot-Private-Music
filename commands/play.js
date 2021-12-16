@@ -1,4 +1,4 @@
-const {joinVoiceChannel,createAudioPlayer,createAudioResource, StreamType} = require("@discordjs/voice")
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType} = require("@discordjs/voice")
 const ytdl = require('ytdl-core-discord');
 const ytSearch = require('yt-search');
 
@@ -17,10 +17,6 @@ module.exports = {
     if (!permissions.has('CONNECT')) return message.channel.send(noPermissions);
     if (!permissions.has('SPEAK')) return message.channel.send(noPermissions);
     if (!args.length) return message.channel.send(noArgs);
-
-
-
-
 
     const videoFinder = async (query) => {
       const videoResults = await ytSearch(query);
@@ -48,24 +44,11 @@ module.exports = {
       // resource.volume.setVolume(0.2);
       const player = createAudioPlayer();
       VoiceConnection.subscribe(player);
-      player.play(resource)
-
-      // player.on("idle", async() => {
-      //   try {
-      //     player.stop()
-      //   } catch (error) {}
-
-      //   try {
-      //     VoiceConnection.destroy()
-      //   } catch (error) {}
-
-      //   // await new Promise(res => setTimeout(() => res(2), 500))
-      //   // joinChannel(channelId);
-      // })
+      player.play(resource);
 
       await message.reply(`:thumbs up: Now playing ***${video.title}***`);
     } else {
-      message.channel.send('No videos results found.')
+      message.channel.send('No videos results found.');
     }
 
   }
