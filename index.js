@@ -1,8 +1,10 @@
 const dotenv = require('dotenv').config();
-const TOKEN = process.env.TOKEN || TestToken;
-const prefix = '-';
+const commandList = require('./commandList/index.js')
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
+const TOKEN = process.env.TOKEN || TestToken;
+const prefix = '-';
+
 
 const client = new Client({
   intents: [
@@ -31,12 +33,14 @@ client.on('messageCreate', (message) => {
 
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
+  if(commandList[command]){
+    client.commands.get(command).execute(message, args);
 
-  if (command === 'ping') {
-    client.commands.get(command).execute(message, args);
-  } else if (command === 'play') {
-    client.commands.get(command).execute(message, args);
   }
+  // if (command === 'ping') {
+  // } else if (command === 'play') {
+  //   client.commands.get(command).execute(message, args);
+  // }
 });
 
 //Logins with token
